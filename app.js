@@ -52,10 +52,44 @@
 
 
 // assessing the buttons of an id
-const addBook = document.querySelector("#add-book");
+//const addBook = document.querySelector("#add-book");
  //console.log(addBook);
  //console.log(addBook.lastElementChild.textContent);
  //show  parent
 //console.log(addBook.parentElement)
-console.log(addBook.previousElementSibling);
-console.log(addBook.previousSibling);
+//console.log(addBook.previousElementSibling);
+//console.log(addBook.previousSibling);
+
+//to access delete of a child
+const bookList = document.querySelector('#book-list ul');
+//console.log(bookList);
+
+bookList.addEventListener('click', (e) => {
+    console.log(e);
+    let className = e.target.className;
+    //if(Object.is(className, "delete")){
+    if (className === 'delete') {
+        let li = e.target.parentElement
+        bookList.removeChild(li)
+    }
+});
+// event listener takes in two things(description and callback function)
+//To search for name of an element in the available list with alphabets
+const searchBook = document.forms["search-books"];
+const listOfBooks = document.querySelectorAll('#book-list li .name');
+
+searchBook.addEventListener('keyup', function (e) {
+    let inputText = e.target.value.toLowerCase();
+
+    listOfBooks.forEach((book) => {
+        let title = book.textContent.toLowerCase()
+        let isIncluded = title.includes(inputText);
+        let parentNode = book.parentNode;
+        if (isIncluded) {
+            parentNode.style.display = 'block';
+        } else {
+            parentNode.style.display = 'none';
+        }
+
+    })
+})
