@@ -1,26 +1,26 @@
 
-// //getElementById
+// //(getElementById)
 // const wrapper = document.getElementById("wrapper");
 // console.log(wrapper);
 //
 //
-// //getElementByClassName
+// //(getElementByClassName)
 // const title = document.getElementsByClassName("title");
 //
 // console.log(title);
 //
-// //converting to array
+// //(converting to array)
 // console.log(Array.isArray(Array.from(title)));
 //
-// //getElementByTagName
+// //(getElementByTagName)
 // let head = document.getElementsByTagName("header");
 // console.log(head);
 
-// //to query book list
+// //(to query book list)
 // const bookList = document.querySelector("#book-list");
 // console.log(bookList);
 
-//query selector to access series of element of the same type
+//(query selector to access series of element of the same type)
 // const bookList = document.querySelectorAll("#book-list ul li");
 // console.log(bookList);
 
@@ -37,7 +37,7 @@
 //     console.log(book.textContent);
 //});
 //for(const book of bookList) {
-    // to access the text inside each book
+    // to access the text inside each book(textContent: a querry that acceses content of element)
     //console.log(book.textContent);
     // to access the text of a specific book
     //console.log(bookList[1].textContent);
@@ -74,7 +74,7 @@ bookList.addEventListener('click', (e) => {
     }
 });
 // event listener takes in two things(description and callback function)
-//To search for name of an element in the available list with alphabets
+//To search for an element in the available list with alphabets
 const searchBook = document.forms["search-books"];
 const listOfBooks = document.querySelectorAll('#book-list li .name');
 
@@ -92,4 +92,35 @@ searchBook.addEventListener('keyup', function (e) {
         }
 
     })
+})
+
+const addBook = document.forms["add-book"];
+console.log(addBook);
+//e stands for event
+addBook.addEventListener("submit", (e) => {
+    e.preventDefault();
+    //to pick the input and work with it
+    const inputValue = addBook.querySelector('input').value.trim();
+
+    //to add names to the list of Books when the button is clicked
+    if(inputValue) {
+        const liTag = document.createElement("li")
+        const firstSpan = document.createElement("span")
+        const secondSpan = document.createElement("span")
+
+        firstSpan.className = 'name';
+        secondSpan.className = 'delete';
+        liTag.appendChild(firstSpan);
+        liTag.appendChild(secondSpan);
+        console.log(liTag)
+
+        firstSpan.textContent = inputValue;
+        secondSpan.textContent = "delete";
+
+        bookList.appendChild(liTag)
+        //adds to the top of the list
+        bookList.prepend(liTag)
+        //resets the addBook to empty after typing to text
+        addBook.reset()
+    }
 })
